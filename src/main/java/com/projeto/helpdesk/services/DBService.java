@@ -10,8 +10,11 @@ import com.projeto.helpdesk.repositories.ChamadoRepository;
 import com.projeto.helpdesk.repositories.ClienteRepository;
 import com.projeto.helpdesk.repositories.TecnicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service
 public class DBService {
 
     @Autowired
