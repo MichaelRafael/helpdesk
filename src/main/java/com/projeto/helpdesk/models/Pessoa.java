@@ -2,6 +2,7 @@ package com.projeto.helpdesk.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.projeto.helpdesk.enuns.Perfil;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,13 +19,17 @@ public abstract class Pessoa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
+
     protected String nome;
 
     @Column(unique = true)
+    @Length(max = 11)
     protected String cpf;
 
     @Column(unique = true)
+    @Length(max = 50)
     protected String email;
+
     protected String senha;
 
     @ElementCollection(fetch = FetchType.EAGER)
