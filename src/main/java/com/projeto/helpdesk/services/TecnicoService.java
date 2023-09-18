@@ -1,5 +1,6 @@
 package com.projeto.helpdesk.services;
 
+import com.projeto.helpdesk.dtos.TecnicoDTO;
 import com.projeto.helpdesk.exceptions.ObjectNotFoundException;
 import com.projeto.helpdesk.models.Tecnico;
 import com.projeto.helpdesk.repositories.TecnicoRepository;
@@ -22,5 +23,11 @@ public class TecnicoService {
 
     public List<Tecnico> findAll() {
         return tecnicoRepository.findAll();
+    }
+
+    public Tecnico save(TecnicoDTO tecnicoDTO) {
+        tecnicoDTO.setId(null);
+        Tecnico tecnico = new Tecnico(tecnicoDTO);
+        return tecnicoRepository.save(tecnico);
     }
 }
