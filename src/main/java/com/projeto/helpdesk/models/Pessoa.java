@@ -3,8 +3,10 @@ package com.projeto.helpdesk.models;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.projeto.helpdesk.enuns.Perfil;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -22,10 +24,12 @@ public abstract class Pessoa implements Serializable {
 
     protected String nome;
 
+    @CPF
     @Column(unique = true)
-    @Length(max = 11)
+    @Length(min = 11, max = 15)
     protected String cpf;
 
+    @Email
     @Column(unique = true)
     @Length(max = 50)
     protected String email;
@@ -41,7 +45,7 @@ public abstract class Pessoa implements Serializable {
 
     public Pessoa() {
         super();
-        addPerfil(Perfil.CLIENTE);
+        addPerfis(Perfil.CLIENTE);
     }
 
     public Pessoa(Integer id, String nome, String cpf, String email, String senha) {
@@ -50,7 +54,7 @@ public abstract class Pessoa implements Serializable {
         this.cpf = cpf;
         this.email = email;
         this.senha = senha;
-        addPerfil(Perfil.CLIENTE);
+        addPerfis(Perfil.CLIENTE);
     }
 
     public Integer getId() {
@@ -93,11 +97,11 @@ public abstract class Pessoa implements Serializable {
         this.senha = senha;
     }
 
-    public Set<Perfil> getPerfil() {
+    public Set<Perfil> getPerfis() {
         return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
     }
 
-    public void addPerfil(Perfil perfil) {
+    public void addPerfis(Perfil perfil) {
         this.perfis.add(perfil.getCodigo());
     }
 

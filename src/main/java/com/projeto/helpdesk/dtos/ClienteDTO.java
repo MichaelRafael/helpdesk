@@ -2,6 +2,7 @@ package com.projeto.helpdesk.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.projeto.helpdesk.enuns.Perfil;
+import com.projeto.helpdesk.models.Cliente;
 import com.projeto.helpdesk.models.Tecnico;
 
 import javax.validation.constraints.NotBlank;
@@ -10,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class TecnicoDTO {
+public class ClienteDTO {
 
     protected Integer id;
     @NotBlank(message = "O campo NOME é requerido")
@@ -29,12 +30,12 @@ public class TecnicoDTO {
     @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataCriacao = LocalDate.now();
 
-    public TecnicoDTO() {
+    public ClienteDTO() {
         super();
         addPerfis(Perfil.CLIENTE);
     }
 
-    public TecnicoDTO(Integer id, String nome, String cpf, String email, String senha,
+    public ClienteDTO(Integer id, String nome, String cpf, String email, String senha,
                       Set<Integer> perfis, LocalDate dataCriacao) {
         this.id = id;
         this.nome = nome;
@@ -46,15 +47,15 @@ public class TecnicoDTO {
         addPerfis(Perfil.CLIENTE);
     }
 
-    public TecnicoDTO(Tecnico tecnico) {
+    public ClienteDTO(Cliente cliente) {
         super();
-        this.id = tecnico.getId();
-        this.nome = tecnico.getNome();
-        this.cpf = tecnico.getCpf();
-        this.email = tecnico.getEmail();
-        this.senha = tecnico.getSenha();
-        this.perfis = tecnico.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
-        this.dataCriacao = tecnico.getDataCriacao();
+        this.id = cliente.getId();
+        this.nome = cliente.getNome();
+        this.cpf = cliente.getCpf();
+        this.email = cliente.getEmail();
+        this.senha = cliente.getSenha();
+        this.perfis = cliente.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
+        this.dataCriacao = cliente.getDataCriacao();
         addPerfis(Perfil.CLIENTE);
     }
 
