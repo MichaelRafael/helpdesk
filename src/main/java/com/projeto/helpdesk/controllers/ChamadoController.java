@@ -5,12 +5,11 @@ import com.projeto.helpdesk.models.Chamado;
 import com.projeto.helpdesk.services.ChamadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.*;
 
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +33,12 @@ public class ChamadoController {
         List<Chamado> list = chamadoService.findAll();
         List<ChamadoDTO> listDTO = list.stream().map(x -> new ChamadoDTO(x)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
+    }
+
+    @PostMapping
+    public ResponseEntity<ChamadoDTO> save(@Valid @RequestBody ChamadoDTO chamadoDTO) {
+        Chamado chamado = chamadoService.save(chamadoDTO);
+        return ResponseEntity.ok().body(new ChamadoDTO(chamado));
     }
 
 }
