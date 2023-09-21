@@ -41,4 +41,10 @@ public class ChamadoController {
         return ResponseEntity.ok().body(new ChamadoDTO(chamado));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ChamadoDTO> upDate(@PathVariable Integer id,@Valid @RequestBody ChamadoDTO chamadoDTO) {
+        Chamado chamado = chamadoService.upDate(id, chamadoDTO);
+        return ResponseEntity.ok().body(new ChamadoDTO(chamado));
+    }
+
 }
