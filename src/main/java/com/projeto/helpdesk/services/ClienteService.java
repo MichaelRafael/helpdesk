@@ -11,6 +11,7 @@ import com.projeto.helpdesk.repositories.ClienteRepository;
 import com.projeto.helpdesk.repositories.PessoaRepository;
 import com.projeto.helpdesk.repositories.TecnicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +27,9 @@ public class ClienteService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     public Cliente findById(Integer id) {
         Optional<Cliente> cliente = clienteRepository.findById(id);
         return cliente.orElseThrow(() -> new ObjectNotFoundException("Cliente não encontrado"));
@@ -37,6 +41,7 @@ public class ClienteService {
 
     public Cliente save(ClienteDTO clienteDTO) {
         clienteDTO.setId(null);
+        clienteDTO.setSenha(bCryptPasswordEncoder.encode(clienteDTO.getSenha()));
         validaPorCpfEmail(clienteDTO);
         Cliente cliente = new Cliente(clienteDTO);
         return clienteRepository.save(cliente);

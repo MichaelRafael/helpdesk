@@ -10,6 +10,7 @@ import com.projeto.helpdesk.repositories.ChamadoRepository;
 import com.projeto.helpdesk.repositories.ClienteRepository;
 import com.projeto.helpdesk.repositories.TecnicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,19 +27,22 @@ public class DBService {
     @Autowired
     private ChamadoRepository chamadoRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     public void instanciaDB() {
 
-        Tecnico tec1 = new Tecnico(null, "Michael Rafael", "04131638495", "michael-ras@hotmail.com", "123");
+        Tecnico tec1 = new Tecnico(null, "Michael Rafael", "04131638495", "michael-ras@hotmail.com", bCryptPasswordEncoder.encode("123"));
         tec1.addPerfis(Perfil.ADMIN);
-        Tecnico tec2 = new Tecnico(null, "Roberto Alves", "84647581039", "roberto_alves@hotmail.com", "123");
-        Tecnico tec3 = new Tecnico(null, "Camila Pitanga", "66907000032", "camila-pitanga@hotmail.com", "123");
+        Tecnico tec2 = new Tecnico(null, "Roberto Alves", "84647581039", "roberto_alves@hotmail.com", bCryptPasswordEncoder.encode("123"));
+        Tecnico tec3 = new Tecnico(null, "Camila Pitanga", "66907000032", "camila-pitanga@hotmail.com", bCryptPasswordEncoder.encode("123"));
         tec1.addPerfis(Perfil.ADMIN);
-        Tecnico tec4 = new Tecnico(null, "Magno Malta", "81406873080", "magno_malta@hotmail.com", "123");
+        Tecnico tec4 = new Tecnico(null, "Magno Malta", "81406873080", "magno_malta@hotmail.com", bCryptPasswordEncoder.encode("123"));
 
-        Cliente cli1 = new Cliente(null, "Rosangela Conceição", "04448004414", "rosangela@hotmail.com", "123");
-        Cliente cli2 = new Cliente(null, "José da Manga", "41406756083", "jose_manga@hotmail.com", "123");
-        Cliente cli3 = new Cliente(null, "Rodrigo Costa", "71831608073", "rodrigo_costa@hotmail.com", "123");
-        Cliente cli4 = new Cliente(null, "Amanda Costa", "37941111098", "amanda_costa@hotmail.com", "123");
+        Cliente cli1 = new Cliente(null, "Rosangela Conceição", "04448004414", "rosangela@hotmail.com", bCryptPasswordEncoder.encode("123"));
+        Cliente cli2 = new Cliente(null, "José da Manga", "41406756083", "jose_manga@hotmail.com", bCryptPasswordEncoder.encode("123"));
+        Cliente cli3 = new Cliente(null, "Rodrigo Costa", "71831608073", "rodrigo_costa@hotmail.com", bCryptPasswordEncoder.encode("123"));
+        Cliente cli4 = new Cliente(null, "Amanda Costa", "37941111098", "amanda_costa@hotmail.com", bCryptPasswordEncoder.encode("123"));
 
         Chamado chamado1 = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Chamado 01", "Primeiro chamado", tec1, cli2);
         Chamado chamado2 = new Chamado(null, Prioridade.BAIXA, Status.ABERTO, "Chamado 02", "Segundo chamado", tec1, cli2);
